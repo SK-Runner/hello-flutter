@@ -13,7 +13,9 @@ class MyApp extends StatelessWidget {
         appBar: AppBar(
           title: Text('Welcome to Flutter'),
         ),
-        body:HomeContent()
+        body: Center(
+          child: RandomWords()
+        )
       ),
       theme: ThemeData(
         primarySwatch: Colors.indigo
@@ -23,27 +25,53 @@ class MyApp extends StatelessWidget {
   
 }
 
-class HomeContent extends StatelessWidget{
+class RandomWordsState extends State<RandomWords> {
+  final List<WordPair> _suggestions = <WordPair>[];
+  final TextStyle _biggerFont = const TextStyle(
+    fontSize: 18.0
+  );
+
+  Widget _buildSuggestions() {
+    return ListView.builder(
+      padding: const EdgeInsets.all(16.0),
+      itemBuilder: (BuildContext _context, int i) {
+        if (i.isOdd) {
+          return new Divider();
+        }
+        final int index = i ~/ 2;
+        if(index >= _suggestions.length){
+          _suggestions.addAll(generateWordPairs().take(10));
+        }
+        return _buildRow(_suggestions[index]);
+      },
+    );
+  }
+
+  Widget _buildRow(WordPair wordPair) {
+    return ListTile(
+      title: Text(
+        wordPair.asPascalCase,
+        style: _biggerFont
+      )
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        child: const Text(
-          '你好啊',
-          textAlign: TextAlign.left,
-          overflow: TextOverflow.ellipsis,
-          maxLines: 1,
-        ),
-        height: 300.0,
-        width: 300.0,
-        decoration: BoxDecoration(
-          color: Colors.lightBlue,
-          border: Border.all(
-            color: Colors.pink.shade100,
-            width: 2.0
-          )
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Generate Name'),
       ),
+      body: _buildSuggestions()
     );
+  }
+  
+}
+
+class RandomWords extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    return RandomWordsState();
   }
 }

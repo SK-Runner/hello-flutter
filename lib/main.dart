@@ -12,66 +12,93 @@ class MyApp extends StatelessWidget {
       home:Scaffold(
         appBar: AppBar(
           title: Text('Welcome to Flutter'),
+          // 右边分享按钮
+          actions: <Widget>[
+            IconButton(onPressed: (){}, icon: Icon(Icons.share))
+          ],
         ),
-        body: Center(
-          child: RandomWords()
-        )
+        // 左侧抽屉
+        drawer: MyDrawer(),
+        // 
+        body: ScaffoldRoute(),
+        bottomNavigationBar: bottom()
       ),
       theme: ThemeData(
         primarySwatch: Colors.indigo
       ),
     );
   }
+}
+class ScaffoldRoute extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _ScaffoldRouteState();
   
 }
-
-class RandomWordsState extends State<RandomWords> {
-  final List<WordPair> _suggestions = <WordPair>[];
-  final TextStyle _biggerFont = const TextStyle(
-    fontSize: 18.0
-  );
-
-  Widget _buildSuggestions() {
-    return ListView.builder(
-      padding: const EdgeInsets.all(16.0),
-      itemBuilder: (BuildContext _context, int i) {
-        if (i.isOdd) {
-          return new Divider();
-        }
-        final int index = i ~/ 2;
-        if(index >= _suggestions.length){
-          _suggestions.addAll(generateWordPairs().take(10));
-        }
-        return _buildRow(_suggestions[index]);
-      },
-    );
-  }
-
-  Widget _buildRow(WordPair wordPair) {
-    return ListTile(
-      title: Text(
-        wordPair.asPascalCase,
-        style: _biggerFont
-      )
-    );
-  }
-
+class _ScaffoldRouteState extends State<ScaffoldRoute> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Generate Name'),
-      ),
-      body: _buildSuggestions()
-    );
+    return Scaffold();
   }
   
 }
 
-class RandomWords extends StatefulWidget {
+class bottom extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return RandomWordsState();
+  State<StatefulWidget> createState() => _bottom();
+}
+
+class _bottom extends State<bottom> {
+  int _selectedIndex = 0;
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+      items: <BottomNavigationBarItem>[
+        BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('home')),
+        BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('list')),
+        BottomNavigationBarItem(icon: Icon(Icons.home), title: Text('balabala')),
+      ],
+      currentIndex: _selectedIndex,
+      fixedColor: Colors.blue,
+      onTap: _onItemTapped,
+    );
   }
+
+  void _onItemTapped(int index) {
+  setState(() {
+    _selectedIndex = index;
+  });
+  }
+}
+
+class MyDrawer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: MediaQuery.removePadding(
+        context:context,
+        removeTop: true,
+        child:Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: ClipOval(
+                child: Image.asset(
+                  'imgs/avatar.png',
+                  width: 80,
+                )
+              )
+            ),
+            Text(
+              "wendux",
+              style: TextStyle(fontWeight: FontWeight.bold)
+            )
+          ],
+        ),
+        
+      )
+      
+    );
+  }
+  
 }
