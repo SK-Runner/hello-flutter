@@ -1,16 +1,10 @@
-# hello_flutter
+# 学习笔记
 
-A new Flutter project.
+## 1、Flutter 目录结构
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- android——包含Android特定文件的Android子工程
+- build——是运行项目的时候生成的编译文件，即Android和iOS的构建产物
+- ios——包含iOS特定文件的iOS子工程
+- lib——Flutter应用源文件目录，我们自己写的Dart文件都放进lib文件夹中
+- test——测试文件
+- pubspec.yaml——管理第三方库及资源的配置文件
