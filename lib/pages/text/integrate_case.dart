@@ -19,7 +19,7 @@ class _IntegrateCase extends State<IntegrateCase>{
         title: const Text('综合案例'),
       ),
       body: Container(
-        width: 300,
+        width: 360,
         height: 900,
         color: Colors.amber[600],
         child: Column(

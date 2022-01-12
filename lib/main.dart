@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 // import 'pages/text/text.dart'; 
 // import 'pages/text/rich_text.dart';
 // import 'pages/text/text_field.dart';
-import 'pages/text/integrate_case.dart';
+// import 'pages/text/integrate_case.dart';
+import 'pages/baseComponents/button.dart';
 
 void main(){
   runApp(
@@ -17,7 +18,7 @@ void main(){
           ),
         )
       ),
-      home: IntegrateCase(),
+      home: buttonPage(),
     )
   );
 }
