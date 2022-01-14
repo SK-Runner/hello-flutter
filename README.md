@@ -261,25 +261,223 @@ class _TextFieldPage extends State<TextFieldPage> {
 
 ### 按钮组件
 
+按钮类型：
+
+- **RaisedButton** ：凸起的按钮，其实就是 Material Design 风格的 Button 
+- **FlatButton** ：扁平化的按钮 
+- **OutlineButton**：线框按钮 
+- **IconButton**：图标按钮 
+- **ButtonBar**： 按钮组 
+- **FloatingActionButton**： 浮动按钮
+- ......
+
+按钮事件：
+
+当onPressed事件置顶为null时，该按钮为禁用按钮
+
+| 事件名称           | 描述                       |
+| ------------------ | -------------------------- |
+| onPressed          | 按钮点击事件               |
+| onLongPress        | 按钮长按事件               |
+| onHighlightChanged | 按钮点击水波纹效果状态事件 |
+
+```dart
+onHighlightChanged:(higntlight){
+  // heightlight:代表水波状态是否结束，开始为true，结束为false
+  if(higntlight) {
+    // ignore: avoid_print
+    print('水波纹开始');
+  }else{
+    // ignore: avoid_print
+    print('水波纹开结束');
+  }
+},
+```
+
+常用属性：
+
+| 属性名称          | 值类型  | 属性值                         |
+| ----------------- | ------- | ------------------------------ |
+| child             | widget  | 文本控件                       |
+| textColor         | Color   | 文本颜色                       |
+| color             | Color   | 按钮的颜色                     |
+| disabledColor     | Color   | 按钮禁用时的颜色               |
+| disabledTextColor | Color   | 按钮禁用时的文本颜色           |
+| splashColor       | Color   | 点击按钮时水波纹的颜色         |
+| highlightColor    | Color   | 点击（长按）按钮后按钮的颜色   |
+| elevation         | double  | 阴影的范围，值越大阴影范围越大 |
+| padding           |         | 内边距                         |
+| shape             | windget | 使用ShapeBorder类规定的形状    |
+
 
 
 ### 单选组件
+
+一般使用RadioListTile。原因：RadioListTile提供了title属性，可以给按钮设置label。
+
+触发事件：
+
+| 事件名称  | 事件描述                                        |
+| --------- | ----------------------------------------------- |
+| onChanged | 更改单选按钮时触发，参数为被选择的按钮的value值 |
+
+属性：
+
+| 属性名称    | 值类型 | 属性值                                 |
+| ----------- | ------ | -------------------------------------- |
+| value       | String | 按钮对应的值                           |
+| groupValue  | String | 当value=groupValue时，该按钮可以被选中 |
+| activeColor | Color  | 按钮被选中时的颜色                     |
+
+
+
+RadioListTile 额外属性：
+
+| 属性名称 | 值类型 | 属性值             |
+| -------- | ------ | ------------------ |
+| title    | Text   | 单选按钮的描述文本 |
 
 
 
 ### 复选组件
 
+一般不直接使用Checkbox，而是使用CheckboxListTile，原因和Radio类似
+
+CheckboxListTile部分属性：
+
+| 属性名称        | 值类型                  | 属性值                                                       |
+| --------------- | ----------------------- | ------------------------------------------------------------ |
+| title           | widget                  |                                                              |
+| subtitle        | widget                  |                                                              |
+| controlAffinity | ListTileControlAffinity | 勾选框布局方式。<br />默认值：ListTileControlAffinity.platform，根据平台决定<br />ListTileControlAffinity.leading，勾选框在前<br />ListTileControlAffinity.trailing，勾选框在后 |
+| secondary       | widget                  | 设置icon                                                     |
+| value           | boolean                 | 是否选中                                                     |
+
 
 
 ### 开关组件
 
+- Switch：基础组件
 
+- SwitchListTile：在Switch基础上添加更多属性
+
+- CupertinoSwitch：IOS风格的组件，和Switch组件类似
+
+
+属性和其他组件类似。
+
+
+
+### 滑块组件
+
+组件类型：
+
+- Slider，普通滑块
+- RangeSlider：范围滑块
+- IOS风格滑块
+- SliderTheme：定义更加细致的滑块样式
+
+普通滑块属性：
+
+| 属性名称      | 值类型 | 属性值                           |
+| ------------- | ------ | -------------------------------- |
+| value         | double | 进度值                           |
+| label         | label  | 拖拽滑块时显示标签的内容         |
+| min           | double | 范围最小值                       |
+| max           | double | 范围最大值                       |
+| divisions     | int    | 离散滑动，将整个滑倒分为若干部分 |
+| activeColor   | Color  | 激活颜色                         |
+| inactiveColor | Color  | 未激活颜色                       |
+
+SliderTheme用法：使用SliderTheme组件可以在data中定义更多样式，child属性为被渲染的slider组件
+
+```dart
+SliderTheme(
+  data: SliderTheme.of(context).copyWith(
+    activeTrackColor: Colors.pink[300],
+    thumbColor: Colors.cyanAccent,
+    overlayColor: Colors.deepOrangeAccent,
+    valueIndicatorColor: Colors.brown,
+    inactiveTrackColor: Colors.black
+  ),
+  child: Slider(
+    value: _sliderValue2,
+    label: '$_sliderValue2',
+    min: 1,
+    max: 100,
+    divisions: 4,
+    onChanged: (value) {
+      setState(() {
+        _sliderValue2 = value;
+      });
+    },
+  ),
+)
+```
 
 ### 进度组件
+
+水平进度指示器：LinearProgressIndicator
+
+圆形进度指示器：CircularProgressIndicator
+
+IOS风格进度指示器：CupertinoActivityIndicator
+
+常用属性：
+
+| 属性名称        | 值类型            | 属性值                                                       |
+| --------------- | ----------------- | ------------------------------------------------------------ |
+| value           | double            | 进度值                                                       |
+| backgroundColor | Colors            | 未加载部分的颜色                                             |
+| valueColor      | Animation<Color?> | 例如：AlwaysStoppedAnimation<Color>(Colors.blue)<br />加载部分的颜色 |
+| minHeight       | double            | 进度条高度（适用于LinearProgressIndicator）                  |
+| strokeWidth     | double            | 数值越大，CircularProgressIndicator指示器越大                |
+| radius          | double            | 同上，适用于CupertinoActivityIndicator                       |
 
 
 
 ### 图片和图标组件
+
+图片组件包含Image和Icon两个组件，本质上Icon不属于图片组件，但其外形效果上类似于图片。项目中建议优先使用Icon组件，原因是：
+
+- 体积更小，显著的减少App包体积
+- 图标不会出现失真或者模糊的现象
+- 多个图标可以存放在一个文件中，方便管理
+- 全平台通用
+
+#### Image 
+
+1、配置图片路径的方法
+
+在根目录中创建assets目录，之后在pubspec.yaml中的flutter下配置assets，具体如下（我的图片放到了assets/images目录中）：
+
+```yaml
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+```
+
+在图片组件中引入本地图片
+
+```dart
+Image.asset(
+  'assets/images/cat-1.jpg',
+  width: 100,
+  height: 100,
+)
+```
+
+2、加载设备上的图片
+
+要加载设备（手机）上的图片首先需要获取设备图片的路径，由于不同平台的路径不同，因此路径的获取必须依靠原生支持，如果了解原生（Android和iOS）开发，可以直接使用**MethodChannel**获取路径，如果不懂原生（Android和iOS）开发，可以使用第三方插件获取路径，推荐**官方的[path_provider](https://pub.flutter-io.cn/packages/path_provider)**。
+
+
 
 
 

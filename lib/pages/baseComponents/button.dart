@@ -41,7 +41,11 @@ class buttonPage extends StatelessWidget{
                     // ignore: avoid_print
                     print('水波纹开结束');
                   }
-                }
+                },
+                shape: BeveledRectangleBorder(
+                  side: BorderSide(width: 1, color: Colors.red),
+                  borderRadius: BorderRadius.circular(50),
+                )
               ),
             ),
             Container(
